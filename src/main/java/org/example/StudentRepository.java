@@ -6,16 +6,36 @@ import java.util.TreeSet;
 public class StudentRepository {
 	Set<Student> catalog = new TreeSet<>();
 
-	public void add() {
-
+	public void add(Student student) {
+		try {
+			if (!catalog.add(student)) {
+				throw new RuntimeException("This student already exists in the catalog.");
+			}
+			catalog.add(student);
+		} catch (RuntimeException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
-	public void delete() {
-
+	public void delete(long cnp) {
+		boolean studentFound = false;
+		try {
+			for (Student student : catalog) {
+				if (student.getCnp() == cnp) {
+					catalog.remove(student);
+					studentFound = true;
+				}
+			}
+			if (!studentFound) {
+				throw new RuntimeException("The student with specified cnp is not in the catalog.");
+			}
+		} catch (RuntimeException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public Set<Student> retreiveAll() {
-		return null;
+		return catalog;
 	}
 
 	public Set<Student> listOrderedStudents() {
