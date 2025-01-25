@@ -11,9 +11,8 @@ public class StudentRepository {
 			if (!catalog.add(student)) {
 				throw new RuntimeException("This student already exists in the catalog.");
 			}
-			catalog.add(student);
-		} catch (RuntimeException e) {
-			System.out.println(e.getMessage());
+		} catch (IllegalArgumentException e) {
+			System.out.println("Some fields are empty or not proper: " + e.getMessage());
 		}
 	}
 
@@ -34,7 +33,7 @@ public class StudentRepository {
 		}
 	}
 
-	public Set<Student> retreiveAll() {
+	public Set<Student> retreiveAll(String birthDate) {
 		return catalog;
 	}
 
