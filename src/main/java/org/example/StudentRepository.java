@@ -12,7 +12,7 @@ public class StudentRepository {
 	private final Set<Student> catalog = new TreeSet<>(new StudentsComparator());
 	private final AgeCalculation ageCalculation = new AgeCalculation();
 
-	public void add(String firstName, String lastName, LocalDate birthDate, String gender, String cnp) {
+	public Set<Student> add(String firstName, String lastName, LocalDate birthDate, String gender, String cnp) {
 		try {
 			Student student = new Student(firstName, lastName, birthDate, gender, cnp);
 			if (!catalog.add(student)) {
@@ -21,9 +21,10 @@ public class StudentRepository {
 		} catch (IllegalArgumentException e) {
 			System.out.println("Some fields are empty or not proper: " + e.getMessage());
 		}
+		return catalog;
 	}
 
-	public void delete(String cnp) {
+	public Set<Student> delete(String cnp) {
 		boolean studentFound = false;
 
 		if (catalog.removeIf(student -> student.getCnp().equals(cnp))) {
@@ -32,6 +33,7 @@ public class StudentRepository {
 		if (!studentFound) {
 			throw new IllegalArgumentException("The student with specified cnp is not in the catalog.");
 		}
+		return catalog;
 	}
 
 	public Set<Student> retrieveAllWithSpecificAge(int age) {

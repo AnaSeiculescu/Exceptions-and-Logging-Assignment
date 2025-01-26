@@ -26,7 +26,7 @@ public class App {
         adminCatalog.deleteStudentFromCatalog("2900912545874");
 
 
-        System.out.println(adminCatalog.catalog);
+        System.out.println(adminCatalog.repository);
 //        System.out.println(adminCatalog.catalog.retrieveAllWithSpecificAge(35));
     }
 }

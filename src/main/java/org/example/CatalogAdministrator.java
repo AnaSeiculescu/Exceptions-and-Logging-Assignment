@@ -3,31 +3,34 @@ package org.example;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 public class CatalogAdministrator {
-	StudentRepository catalog = new StudentRepository();
+	StudentRepository repository = new StudentRepository();
 
-	public void addStudentInCatalog(String firstName, String lastName, LocalDate birthDate, String gender, String cnp) {
+	public Set<Student> addStudentInCatalog(String firstName, String lastName, LocalDate birthDate, String gender, String cnp) {
 		try {
-			catalog.add(firstName, lastName, birthDate, gender, cnp);
+			repository.add(firstName, lastName, birthDate, gender, cnp);
 		} catch(RuntimeException e) {
 			System.out.println(e.getMessage());
 		}
+		return repository.getCatalog();
 	}
 
-	public void deleteStudentFromCatalog(String cnp) {
+	public Set<Student> deleteStudentFromCatalog(String cnp) {
 		try {
-			catalog.delete(cnp);
+			repository.delete(cnp);
 		} catch (IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
+		return repository.getCatalog();
 	}
 
 	@Override
 	public String toString() {
 		return "CatalogAdministrator{" +
-				"catalog=" + catalog +
+				"catalog=" + repository.getCatalog() +
 				'}';
 	}
 }
