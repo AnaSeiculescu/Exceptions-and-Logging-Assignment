@@ -3,6 +3,7 @@ package org.example;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Getter
 public class Student {
@@ -66,7 +67,7 @@ public class Student {
 		}
 		String regex = "\\d+";
 		if (!cnp.matches(regex)) {
-			throw new IllegalArgumentException("CNP should contain only digits: " );
+			throw new IllegalArgumentException("CNP should contain only digits: ");
 		}
 		this.cnp = cnp;
 	}
@@ -80,5 +81,18 @@ public class Student {
 				", gender='" + gender + '\'' +
 				", cnp=" + cnp +
 				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Student student = (Student) o;
+		return Objects.equals(getLastName(), student.getLastName()) || Objects.equals(getBirthDate(), student.getBirthDate());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getLastName(), getBirthDate());
 	}
 }

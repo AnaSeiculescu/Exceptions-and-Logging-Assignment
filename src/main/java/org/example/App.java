@@ -16,16 +16,17 @@ public class App {
 
         CatalogAdministrator adminCatalog = new CatalogAdministrator();
 
-        adminCatalog.addStudentInCatalog("Ilie","Cernea",birthDate3,"male", "186112836416x");
+        adminCatalog.addStudentInCatalog("Ilie","Cernea",birthDate3,"male", "1861128364169");
         adminCatalog.addStudentInCatalog("Maria", "Popa", birthDate1, "female", "2900305762139");
         adminCatalog.addStudentInCatalog("Ion","Cernea",birthDate2,"male", "1851128364129");
-        adminCatalog.addStudentInCatalog("Ion","Cernea",birthDate2,"male", "1851128364129");
+//        adminCatalog.addStudentInCatalog("Ion","Cernea",birthDate2,"male", "1851128364129");
         adminCatalog.addStudentInCatalog("Elena","Mitrea",birthDate4,"female", "2900912545874");
 
-//        adminCatalog.deleteStudentFromCatalog(29003057621L);
+        adminCatalog.deleteStudentFromCatalog("2900912545874");
+        adminCatalog.deleteStudentFromCatalog("2900912545874");
 
 
-//        System.out.println(adminCatalog.catalog);
-        System.out.println(adminCatalog.catalog.retrieveAllWithSpecificAge(35));
+        System.out.println(adminCatalog.catalog);
+//        System.out.println(adminCatalog.catalog.retrieveAllWithSpecificAge(35));
     }
 }

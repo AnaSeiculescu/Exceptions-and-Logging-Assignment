@@ -26,11 +26,8 @@ public class StudentRepository {
 	public void delete(String cnp) {
 		boolean studentFound = false;
 
-		for (Student student : catalog) {
-			if (student.getCnp().equals(cnp)) {
-				catalog.remove(student);
-				studentFound = true;
-			}
+		if (catalog.removeIf(student -> student.getCnp().equals(cnp))) {
+			studentFound = true;
 		}
 		if (!studentFound) {
 			throw new IllegalArgumentException("The student with specified cnp is not in the catalog.");
@@ -47,10 +44,6 @@ public class StudentRepository {
 		}
 		return studentsWithSpecificBirthDate;
 	}
-
-//	public Set<Student> listOrderedStudents() {
-//		return catalog;
-//	}
 
 	@Override
 	public String toString() {
