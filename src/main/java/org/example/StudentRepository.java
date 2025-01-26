@@ -3,23 +3,14 @@ package org.example;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
 @Getter
 
 public class StudentRepository {
-//	private Student student = new Student();
-	private final Set<Student> catalog = new TreeSet<>(new Comparator<Student>() {
-		@Override
-		public int compare(Student student1, Student student2) {
-			if (student1.getLastName().equals(student2.getLastName())) {
-				return student1.getBirthDate().compareTo(student2.getBirthDate());
-			}
-			return student1.getLastName().compareTo(student2.getLastName());
-		}
-	});
+	private final Set<Student> catalog = new TreeSet<>(new StudentsComparator());
+	private final AgeCalculation ageCalculation = new AgeCalculation();
 
 	public void add(String firstName, String lastName, LocalDate birthDate, String gender, String cnp) {
 		try {
@@ -36,7 +27,7 @@ public class StudentRepository {
 		boolean studentFound = false;
 
 		for (Student student : catalog) {
-			if (student.getCnp() == cnp) {
+			if (student.getCnp().equals(cnp)) {
 				catalog.remove(student);
 				studentFound = true;
 			}
@@ -46,13 +37,20 @@ public class StudentRepository {
 		}
 	}
 
-	public Set<Student> retreiveAll(String birthDate) {
-		return catalog;
+	public Set<Student> retrieveAllWithSpecificAge(int age) {
+		Set<Student> studentsWithSpecificBirthDate = new TreeSet<>(new StudentsComparator());
+
+		for (Student student : catalog) {
+			if (ageCalculation.getAgeFromBirthday(student.getBirthDate()) == age) {
+				studentsWithSpecificBirthDate.add(student);
+			}
+		}
+		return studentsWithSpecificBirthDate;
 	}
 
-	public Set<Student> listOrderedStudents() {
-		return catalog;
-	}
+//	public Set<Student> listOrderedStudents() {
+//		return catalog;
+//	}
 
 	@Override
 	public String toString() {

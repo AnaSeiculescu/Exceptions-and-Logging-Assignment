@@ -20,9 +20,6 @@ public class Student {
 		setCnp(cnp);
 	}
 
-	public Student() {
-	}
-
 	public void setFirstName(String firstName) {
 		if (firstName.isEmpty()) {
 			throw new IllegalArgumentException("First name should not be empty.");
