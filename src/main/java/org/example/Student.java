@@ -1,28 +1,26 @@
 package org.example;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.util.Arrays;
-
 
 @Getter
 public class Student {
 	private String firstName;
 	private String lastName;
 	private LocalDate birthDate;
-	private Gender gender;
-	@Setter
-	private long cnp;
+	private String gender;
+	private String cnp;
 
-	public Student(String firstName, String lastName, LocalDate birthDate, Gender gender, long cnp) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.birthDate = birthDate;
-		this.gender = gender;
-		this.cnp = cnp;
+	public Student(String firstName, String lastName, LocalDate birthDate, String gender, String cnp) {
+		setFirstName(firstName);
+		setLastName(lastName);
+		setBirthDate(birthDate);
+		setGender(gender);
+		setCnp(cnp);
+	}
+
+	public Student() {
 	}
 
 	public void setFirstName(String firstName) {
@@ -40,19 +38,50 @@ public class Student {
 	}
 
 	public void setBirthDate(LocalDate birthDate) {
+		if (birthDate == null) {
+			throw new IllegalArgumentException("Birth date cannot be null.");
+		}
 		if (birthDate.getYear() <= 1900) {
-			throw new IllegalArgumentException("The yer of birth should be after 1900.");
+			throw new IllegalArgumentException("The year of birth should be after 1900.");
+		}
+		if (birthDate.isAfter(LocalDate.now())) {
+			throw new IllegalArgumentException("The year of birth should not be in the future.");
 		}
 		this.birthDate = birthDate;
 	}
 
 	public void setGender(String gender) {
+		boolean genderFound = false;
 		for (Gender currentGender : Gender.values()) {
-			if (gender.equals(currentGender.toString().toUpperCase())) {
-				this.gender = Gender.valueOf(gender.toUpperCase());
-			} else {
-				throw new IllegalArgumentException("The gender provided should be male or female");
+			if (gender.toUpperCase().equals(currentGender.toString())) {
+				this.gender = Gender.valueOf(gender.toUpperCase()).toString();
+				genderFound = true;
 			}
 		}
+		if (!genderFound) {
+			throw new IllegalArgumentException("The gender provided should be male or female");
+		}
+	}
+
+	public void setCnp(String cnp) {
+		if (cnp.length() != 13) {
+			throw new IllegalArgumentException("CNP should not be an empty filed or have less or more than 10 digits.");
+		}
+		String regex = "\\d+";
+		if (!cnp.matches(regex)) {
+			throw new IllegalArgumentException("CNP should contain only digits: " );
+		}
+		this.cnp = cnp;
+	}
+
+	@Override
+	public String toString() {
+		return "\nStudent{" +
+				"firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", birthDate=" + birthDate +
+				", gender='" + gender + '\'' +
+				", cnp=" + cnp +
+				'}';
 	}
 }
