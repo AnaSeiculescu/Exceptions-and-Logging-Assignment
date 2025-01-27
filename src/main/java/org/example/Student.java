@@ -67,7 +67,7 @@ public class Student {
 		}
 		String regex = "\\d+";
 		if (!cnp.matches(regex)) {
-			throw new IllegalArgumentException("CNP should contain only digits: ");
+			throw new IllegalArgumentException("CNP should contain only digits.");
 		}
 		this.cnp = cnp;
 	}
