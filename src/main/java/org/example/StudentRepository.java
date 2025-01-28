@@ -25,8 +25,12 @@ public class StudentRepository {
 	}
 
 	public Set<Student> delete(String cnp) {
-		boolean studentFound = false;
+		if (catalog.isEmpty()) {
+			System.out.println("Catalog is empty." + getCatalog());
+			return catalog;
+		}
 
+		boolean studentFound = false;
 		if (catalog.removeIf(student -> student.getCnp().equals(cnp))) {
 			studentFound = true;
 		}

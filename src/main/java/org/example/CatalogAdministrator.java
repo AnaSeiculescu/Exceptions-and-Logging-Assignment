@@ -5,6 +5,10 @@ import lombok.Getter;
 import java.time.LocalDate;
 import java.util.Set;
 
+/**
+ * The type Catalog administrator.
+ * A wrapper for StudentRepository class.
+ */
 @Getter
 public class CatalogAdministrator {
 	StudentRepository repository = new StudentRepository();
