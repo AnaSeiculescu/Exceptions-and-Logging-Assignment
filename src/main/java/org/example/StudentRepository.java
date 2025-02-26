@@ -41,7 +41,7 @@ public class StudentRepository {
 	}
 
 	public Set<Student> retrieveAllWithSpecificAge(int age) {
-		Set<Student> studentsWithSpecificBirthDate = new TreeSet<>(new StudentsComparator());
+		Set<Student> studentsWithSpecificBirthDate = new TreeSet<>();
 
 		for (Student student : catalog) {
 			if (ageCalculation.getAgeFromBirthday(student.getBirthDate()) == age) {
